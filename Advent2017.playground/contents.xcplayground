@@ -3,5 +3,7 @@
     <pages>
         <page name='captcha'/>
         <page name='checksum'/>
+        <page name='spiral'/>
+        <page name='passphrase'/>
     </pages>
 </playground>

@@ -3,10 +3,16 @@
 import Foundation
 
 let zero: Unicode.Scalar = "0"
-func toDigitArray(s: String) -> [Int] {
-    return s.unicodeScalars.map({ (scalar) -> Int in
-        return Int(scalar.value - zero.value)
-    })
+let nine: Unicode.Scalar = "9"
+
+extension String {
+    var digitArray: [Int] {
+        return unicodeScalars
+            .filter { (zero.value...nine.value).contains($0.value) }
+            .map { (scalar) -> Int in
+                return Int(scalar.value - zero.value)
+            }
+    }
 }
 
 func captcha(input: [Int]) -> Int {
@@ -48,8 +54,8 @@ captcha(input: [9, 1, 2, 1, 2, 1, 2, 9]) // 9
 
 captcha2(input: [1, 2, 1, 2]) // 3
 captcha2(input: [1, 2, 2, 1]) // 4
-captcha2(input: toDigitArray(s: "123425"))// 4
-captcha2(input: toDigitArray(s: "123123"))// 12
-captcha2(input: toDigitArray(s: "12131415"))// 4
+captcha2(input: "123425".digitArray) // 4
+captcha2(input: "123123".digitArray) // 12
+captcha2(input: "12131415".digitArray) // 4
 
 //: [Next](@next)
