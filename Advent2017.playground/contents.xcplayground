@@ -6,5 +6,6 @@
         <page name='Day 3 - Spiral Memory'/>
         <page name='Day 4 - High-Entropy Passphrases'/>
         <page name='Day 5 - Maze of Twisty Trampolines'/>
+        <page name='Day 6 - Memory Reallocation'/>
     </pages>
 </playground>
