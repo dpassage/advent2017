@@ -17,5 +17,6 @@
         <page name='Day 14 - Disk Defragmentation'/>
         <page name='Day 15 - Dueling Generators'/>
         <page name='Day 16 - Permutation Promenade'/>
+        <page name='Day 17 - Spinlock'/>
     </pages>
 </playground>
