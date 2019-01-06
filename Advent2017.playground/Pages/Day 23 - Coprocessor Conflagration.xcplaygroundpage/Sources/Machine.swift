@@ -54,6 +54,13 @@ public class Machine {
         self.name = name
     }
 
+    func regValues() -> String {
+        var parts: [String] = []
+        for key in registers.keys.sorted() {
+            parts.append("\(key): \(registers[key] ?? 0)")
+        }
+        return parts.joined(separator: ", ")
+    }
     public func load(program: [Instr]) {
         instrs = program
         ip = 0
@@ -70,12 +77,12 @@ public class Machine {
      jnz X Y jumps with an offset of the value of Y, but only if the value of X is not zero. (An offset of 2 skips the next instruction, an offset of -1 jumps to the previous instruction, and so on.)
      */
 
-    public func run() -> Int {
+    public func run(limit: Int = Int.max) -> Int {
         var executed = 0
-        while instrs.indices.contains(ip) {
+        while instrs.indices.contains(ip) && executed < limit {
             let instr = instrs[ip]
             if (executed % 20_000_000 == 0) || debug {
-                print(executed, registers, ip, instr)
+                print(executed, regValues(), ip, instr)
             }
             switch instr {
             case let .set(x, y):
