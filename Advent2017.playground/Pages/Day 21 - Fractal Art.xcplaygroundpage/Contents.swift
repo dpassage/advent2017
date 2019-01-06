@@ -1,7 +1,19 @@
 //: [Previous](@previous)
 
 import Foundation
+import AdventLib
 
+
+extension Rect {
+    func chunks(size: Int) -> [Rect] {
+        for x in stride(from: 0, through: width, by: size) {
+            for y in stride(from: 0, through: height, by: size) {
+
+            }
+        }
+        return []
+    }
+}
 /*
 
  A pattern like `../.#` represents:
@@ -282,5 +294,15 @@ struct ThreeToFourRule {
     }
 }
 
+extension Rect where Element == Bool {
+    subscript(twoGridAt point: Point) -> TwoGrid {
+        
+        return TwoGrid(n: 0)
+    }
+}
+// newRect = rect 15.x bigger, default false
+// for (index, twoGrid) in array
+//   compute threeGrid
+//   insert into newRect
 
 //: [Next](@next)
