@@ -8,6 +8,23 @@
 import Foundation
 import AdventLib
 
+public func day21part1() {
+    var ruleSet = RuleSet()
+    while let line = readLine() {
+        let rule = Rule(line)
+        ruleSet.insert(rule)
+    }
+    ruleSet.printout()
+    var grid = Rect(pattern: ".#./..#/###", separator: "/")
+    for _ in 0..<5 {
+        grid = ruleSet.apply(input: grid)
+    }
+
+    let count = grid.reduce(0) { (sum, cell) -> Int in
+        return sum + (cell ? 1 : 0)
+    }
+    print(count)
+}
 
 struct Rule {
     var pattern: Rect<Bool>
@@ -38,6 +55,17 @@ struct RuleSet {
         for _ in 0..<3 {
             rotated = rotated.rotated()
             table[rotated] = rule.result
+        }
+    }
+
+    func printout() {
+        var lines = [String]()
+        for (pattern, result) in table {
+            lines.append("\(pattern.printed(separator: "/")) => \(result.printed(separator: "/"))")
+        }
+        lines.sort()
+        for line in lines {
+            print(line)
         }
     }
 

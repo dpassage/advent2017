@@ -9,7 +9,8 @@ if CommandLine.arguments.count < 2 {
 let command = CommandLine.arguments[1]
 
 switch command {
-
+case "day21part1":
+    day21part1()
 default:
     print("Unknown command")
     exit(1)
