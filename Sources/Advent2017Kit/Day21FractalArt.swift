@@ -8,7 +8,17 @@
 import Foundation
 import AdventLib
 
+// 194 is correct!
 public func day21part1() {
+    iterate(count: 5)
+}
+
+// 2536879 is correct!
+public func day21part2() {
+    iterate(count: 18)
+}
+
+func iterate(count: Int) {
     var ruleSet = RuleSet()
     while let line = readLine() {
         let rule = Rule(line)
@@ -16,8 +26,9 @@ public func day21part1() {
     }
     ruleSet.printout()
     var grid = Rect(pattern: ".#./..#/###", separator: "/")
-    for _ in 0..<5 {
+    for _ in 0..<count {
         grid = ruleSet.apply(input: grid)
+        print(grid.width)
     }
 
     let count = grid.reduce(0) { (sum, cell) -> Int in
@@ -37,6 +48,12 @@ struct Rule {
     }
 }
 
+extension Rect where Element == Bool {
+    func po() -> String {
+        return self.printed(separator: "/")
+    }
+}
+
 struct RuleSet {
     var table: [Rect<Bool>: Rect<Bool>] = [:]
 
@@ -47,14 +64,24 @@ struct RuleSet {
     }
     
     mutating func insert(_ rule: Rule) {
+        print("--> inserting \(rule.pattern.po())")
         table[rule.pattern] = rule.result
-        table[rule.pattern.flippedHorizontally()] = rule.result
-        table[rule.pattern.flippedVertically()] = rule.result
+//        print("inserting \(rule.pattern.flippedHorizontally().po())")
+//        table[rule.pattern.flippedHorizontally()] = rule.result
+//        print("inserting \(rule.pattern.flippedVertically().po())")
+//        table[rule.pattern.flippedVertically()] = rule.result
 
         var rotated = rule.pattern
-        for _ in 0..<3 {
+        for _ in 0..<4 {
             rotated = rotated.rotated()
+            print("inserting \(rotated.po())")
             table[rotated] = rule.result
+            print("inserting \(rotated.flippedHorizontally().po())")
+
+            table[rotated.flippedHorizontally()] = rule.result
+            print("inserting \(rotated.flippedVertically().po())")
+
+            table[rotated.flippedVertically()] = rule.result
         }
     }
 
